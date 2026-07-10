@@ -7,9 +7,11 @@ import time
 st.set_page_config(page_title="Water Quality", layout="wide")
 st.title("🌊 Smart Water Quality Monitor")
 
-# ThingSpeak settings (badilisha na yako)
-CHANNEL_ID = "YOUR_CHANNEL_ID"
-READ_API_KEY = "YOUR_READ_API_KEY"
+# ========== BADILISHA HAPA ==========
+CHANNEL_ID = "3389783"  # Weka Channel ID yako
+READ_API_KEY = "04JJ8T8BA0TIIBQ0"  # Weka Read API Key yako
+# ====================================
+
 THINGSPEAK_URL = f"https://api.thingspeak.com/channels/{CHANNEL_ID}/feeds.json?api_key={READ_API_KEY}&results=30"
 
 @st.cache_data(ttl=10)
@@ -41,7 +43,6 @@ else:
     c3.metric("🌫️ Turbidity", f"{latest['field3']:.2f} NTU")
     c4.metric("🌡️ Temperature", f"{latest['field4']:.1f} °C")
 
-    # Gauges
     def create_gauge(value, title, min_val, max_val, safe_max=None):
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
