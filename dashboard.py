@@ -27,7 +27,7 @@ def fetch_data():
             return df
         else:
             return pd.DataFrame()
-    except:
+    except Exception:
         return pd.DataFrame()
 
 df = fetch_data()
@@ -41,8 +41,8 @@ else:
     c3.metric("🌫️ Turbidity", f"{latest['field3']:.2f} NTU")
     c4.metric("🌡️ Temperature", f"{latest['field4']:.1f} °C")
 
-    # Gauge charts using Plotly
-    def create_gauge(value, title, min_val, max_val, unit, safe_max=None):
+    # Gauges
+    def create_gauge(value, title, min_val, max_val, safe_max=None):
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
             value=value,
@@ -64,16 +64,15 @@ else:
         fig.update_layout(height=250, margin=dict(l=20, r=20, t=50, b=20))
         return fig
 
-    c1.plotly_chart(create_gauge(latest['field1'], "pH", 0, 14, "pH", 8.5), use_container_width=True)
-    c2.plotly_chart(create_gauge(latest['field2'], "TDS (ppm)", 0, 1000, "ppm", 500), use_container_width=True)
-    c3.plotly_chart(create_gauge(latest['field3'], "Turbidity (NTU)", 0, 10, "NTU", 5), use_container_width=True)
-    c4.plotly_chart(create_gauge(latest['field4'], "Temperature (°C)", 0, 50, "°C", 35), use_container_width=True)
+    g1, g2, g3, g4 = st.columns(4)
+    g1.plotly_chart(create_gauge(latest['field1'], "pH", 0, 14, 8.5), use_container_width=True)
+    g2.plotly_chart(create_gauge(latest['field2'], "TDS (ppm)", 0, 1000, 500), use_container_width=True)
+    g3.plotly_chart(create_gauge(latest['field3'], "Turbidity (NTU)", 0, 10, 5), use_container_width=True)
+    g4.plotly_chart(create_gauge(latest['field4'], "Temperature (°C)", 0, 50, 35), use_container_width=True)
 
-    # Charts
     st.subheader("📈 Historical Trends")
     st.line_chart(df[['field1', 'field2']])
 
-    # Auto-refresh
     if st.sidebar.checkbox("Auto-refresh (5s)", True):
         time.sleep(5)
         st.rerun()
