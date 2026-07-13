@@ -4,10 +4,6 @@ import numpy as np
 import requests
 
 from sklearn.ensemble import IsolationForest
-
-import matplotlib.pyplot as plt
-
-
 # ============================
 # PAGE CONFIG
 # ============================
