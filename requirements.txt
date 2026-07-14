@@ -4,6 +4,6 @@ plotly==5.18.0
 requests==2.31.0
 numpy==1.26.4
 pillow==10.4.0
-scikit-learn==1.5.1
+scikit-learn==1.8.0
 joblib
-xgboost
+xgboost==3.3.0
