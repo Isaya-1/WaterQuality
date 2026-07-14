@@ -1,3 +1,42 @@
+import os
+import glob
+
+# =====================================================================
+#  DEBUG: CHECK AVAILABLE FILES
+# =====================================================================
+st.write("### 🔍 Debug: Files in current directory")
+files = glob.glob("*.pkl")
+for f in files:
+    st.write(f"- {f}")
+
+# Check if specific files exist
+if os.path.exists("scaler.pkl"):
+    st.success("✅ scaler.pkl found")
+else:
+    st.error("❌ scaler.pkl NOT found")
+
+if os.path.exists("isolation_forest.pkl"):
+    st.success("✅ isolation_forest.pkl found")
+else:
+    st.error("❌ isolation_forest.pkl NOT found")
+
+if os.path.exists("random_forest.pkl"):
+    st.success("✅ random_forest.pkl found")
+else:
+    st.error("❌ random_forest.pkl NOT found")
+
+if os.path.exists("xgboost.pkl"):
+    st.success("✅ xgboost.pkl found")
+else:
+    st.error("❌ xgboost.pkl NOT found")
+
+# Also check for xgboost_model.pkl
+if os.path.exists("xgboost_model.pkl"):
+    st.success("✅ xgboost_model.pkl found (but code expects xgboost.pkl)")
+else:
+    st.warning("⚠️ xgboost_model.pkl NOT found")
+st.stop()  # Stop here to see the debug output
+
 import streamlit as st
 import pandas as pd
 import requests
